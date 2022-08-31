@@ -1,7 +1,9 @@
+import { Box } from "@chakra-ui/layout";
+
 const App = () => {
 
     return (
-        <div>Hello World</div>
+        <Box fontSize={'2xl'} color='secondary.500'>Hello World</Box>
     )
 }
 
