@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack } from '@chakra-ui/react';
+import { Box, Grid, GridItem, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text } from '@chakra-ui/react';
 import moment from 'moment';
 import { Component } from 'react';
 
@@ -103,6 +103,11 @@ export class ShowCounter extends Component<ShowCounterProps, ShowCounterState> {
     render() {
         const { labelValue, absolute, total } = this.state;
 
+        const labelStyles = {
+            mt: '4',
+            ml: '-5',
+        }
+
         if (!this.sizeMap) return null;
 
         return (
@@ -111,7 +116,7 @@ export class ShowCounter extends Component<ShowCounterProps, ShowCounterState> {
                     <Box p={6}>
                         <Slider min={0} max={4} w='100%' value={labelValue} onChange={this.handleChange}>
                             {this.marks.map((mark, index) => (
-                                <SliderMark key={index} value={mark.value}>
+                                <SliderMark key={index} value={mark.value} {...labelStyles}>
                                     {mark.label}
                                 </SliderMark>
                             ))}
@@ -124,27 +129,32 @@ export class ShowCounter extends Component<ShowCounterProps, ShowCounterState> {
                 </GridItem>
                 {labelValue > 0 ? null :
                     <GridItem colSpan={this.sizeMap[labelValue][0]} bg='whiteAlpha.900' p={2} textAlign='center' boxShadow='md'>
-                        {this.addThousandPoints(absolute.months)}
+                        <Text fontSize={'4xl'}>{this.addThousandPoints(absolute.months)}</Text>
+                        <Text color='gray.400'>{`Monat${absolute.months === 1 ? '' : 'e'}`}</Text>
                     </GridItem>
                 }
                 {labelValue > 1 ? null :
                     <GridItem colSpan={this.sizeMap[labelValue][1]} bg='whiteAlpha.900' p={2} textAlign='center' boxShadow='md'>
-                        {labelValue === 1 ? this.addThousandPoints(total.days) : this.addThousandPoints(absolute.days)}
+                        <Text fontSize={'4xl'}>{labelValue === 1 ? this.addThousandPoints(total.days) : this.addThousandPoints(absolute.days)}</Text>
+                        <Text color='gray.400'>{`Tag${absolute.days === 1 ? '' : 'e'}`}</Text>
                     </GridItem>
                 }
                 {labelValue > 2 ? null :
                     <GridItem colSpan={this.sizeMap[labelValue][2]} bg='whiteAlpha.900' p={2} textAlign='center' boxShadow='md'>
-                        {labelValue === 2 ? this.addThousandPoints(total.hours) : this.addThousandPoints(absolute.hours)}
+                        <Text fontSize={'4xl'}>{labelValue === 2 ? this.addThousandPoints(total.hours) : this.addThousandPoints(absolute.hours)}</Text>
+                        <Text color='gray.400'>{`Stunde${absolute.hours === 1 ? '' : 'n'}`}</Text>
                     </GridItem>
                 }
                 {labelValue > 3 ? null :
                     <GridItem colSpan={this.sizeMap[labelValue][3]} bg='whiteAlpha.900' p={2} textAlign='center' boxShadow='md'>
-                        {labelValue === 3 ? this.addThousandPoints(total.minutes) : this.addThousandPoints(absolute.minutes)}
+                        <Text fontSize={'4xl'}>{labelValue === 3 ? this.addThousandPoints(total.minutes) : this.addThousandPoints(absolute.minutes)}</Text>
+                        <Text color='gray.400'>{`Minute${absolute.minutes === 1 ? '' : 'n'}`}</Text>
                     </GridItem>
                 }
                 {labelValue > 4 ? null :
                     <GridItem colSpan={this.sizeMap[labelValue][4]} bg='whiteAlpha.900' p={2} textAlign='center' boxShadow='md'>
-                        {labelValue === 4 ? this.addThousandPoints(total.seconds) : this.addThousandPoints(absolute.seconds)}
+                        <Text fontSize={'4xl'}>{labelValue === 4 ? this.addThousandPoints(total.seconds) : this.addThousandPoints(absolute.seconds)}</Text>
+                        <Text color='gray.400'>{`Sekunde${absolute.seconds === 1 ? '' : 'n'}`}</Text>
                     </GridItem>
                 }
             </Grid>
